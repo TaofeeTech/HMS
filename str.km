@@ -1,0 +1,287 @@
+{
+    "root": {
+        "data": {
+            "id": "d4aec50v8800",
+            "created": 1726762830121,
+            "text": "HOTEL MANAGEMENT SYSTEM",
+            "progress": null,
+            "resource": []
+        },
+        "children": [
+            {
+                "data": {
+                    "id": "d4aeejez5i00",
+                    "created": 1726763018177,
+                    "text": "Online Booking",
+                    "expandState": "expand"
+                },
+                "children": [
+                    {
+                        "data": {
+                            "id": "d4aehg4asqo0",
+                            "created": 1726763246094,
+                            "text": "Bookings Table",
+                            "expandState": "collapse",
+                            "resource": [],
+                            "priority": 2
+                        },
+                        "children": [
+                            {
+                                "data": {
+                                    "id": "d4aeiv3fet40",
+                                    "created": 1726763357057,
+                                    "text": "Id"
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "d4aekxa6fso0",
+                                    "created": 1726763518547,
+                                    "text": "room_id",
+                                    "resource": [
+                                        "room_id"
+                                    ]
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "d4ael6csqe80",
+                                    "created": 1726763538297,
+                                    "text": "guest_id"
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "d4aelceaa540",
+                                    "created": 1726763551447,
+                                    "text": "arrival_date"
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "d4aelh17yfk0",
+                                    "created": 1726763561541,
+                                    "text": "departure_date"
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "d4aelp43nn40",
+                                    "created": 1726763579130,
+                                    "text": "booking_date"
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "d4aeluhvzp40",
+                                    "created": 1726763590847,
+                                    "text": "status"
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "d4aely5fd0o0",
+                                    "created": 1726763598801,
+                                    "text": "num_guests"
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "d4aem44t34o0",
+                                    "created": 1726763611824,
+                                    "text": "room_type"
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "d4aem8li2ug0",
+                                    "created": 1726763621541,
+                                    "text": "rate"
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "d4aemcbwexs0",
+                                    "created": 1726763629667,
+                                    "text": "total_cost"
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "d4aemkhtg540",
+                                    "created": 1726763647439,
+                                    "text": "payment_method"
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "d4aemrrmk0w0",
+                                    "created": 1726763663270,
+                                    "text": "payment_status"
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "d4aemzxeyo80",
+                                    "created": 1726763681034,
+                                    "text": "created_at"
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "d4aen3xatc00",
+                                    "created": 1726763689734,
+                                    "text": "updated_at"
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "d4aen7gp1sw0",
+                                    "created": 1726763697437,
+                                    "text": "deleted_at"
+                                },
+                                "children": []
+                            }
+                        ]
+                    },
+                    {
+                        "data": {
+                            "id": "d4aehymj1k80",
+                            "created": 1726763286378,
+                            "text": "Rooms table",
+                            "priority": 1,
+                            "expandState": "collapse"
+                        },
+                        "children": [
+                            {
+                                "data": {
+                                    "id": "d4aeunef5340",
+                                    "created": 1726764280677,
+                                    "text": "id",
+                                    "resource": [
+                                        "room_id"
+                                    ]
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "d4aev3xfu480",
+                                    "created": 1726764316656,
+                                    "text": "room_number"
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "d4aev8sdctk0",
+                                    "created": 1726764327233,
+                                    "text": "room_category"
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "d4aeve3uqqo0",
+                                    "created": 1726764338812,
+                                    "text": "description"
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "d4aey7ld6l40",
+                                    "created": 1726764559726,
+                                    "text": "rate_per_night"
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "d4aeydjd0g80",
+                                    "created": 1726764572665,
+                                    "text": "capacity(maximum num of guest)"
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "d4aeyt7wi000",
+                                    "created": 1726764606801,
+                                    "text": "status"
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "d4aeyxqjwnc0",
+                                    "created": 1726764616636,
+                                    "text": "images"
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "d4aez20ko680",
+                                    "created": 1726764625949,
+                                    "text": "created_at"
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "d4aez9mqr0g0",
+                                    "created": 1726764642527,
+                                    "text": "updated_at"
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "d4aezgrfe1s0",
+                                    "created": 1726764658047,
+                                    "text": "deleted_at"
+                                },
+                                "children": []
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "data": {
+                    "id": "d4aegqlkhio0",
+                    "created": 1726763190542,
+                    "text": "Front-Desk Booking"
+                },
+                "children": []
+            },
+            {
+                "data": {
+                    "id": "d4aeh3f8c1k0",
+                    "created": 1726763218457,
+                    "text": "Staff Management"
+                },
+                "children": []
+            }
+        ]
+    },
+    "template": "filetree",
+    "theme": "fresh-blue",
+    "version": "1.4.43"
+}
