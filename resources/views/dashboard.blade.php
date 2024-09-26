@@ -1,5 +1,8 @@
 @extends('profile.guest_profile_main')
 @section('guest')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
+        integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     @php
         $user = auth()->user();
     @endphp
@@ -156,22 +159,7 @@
                                                                             </div>
                                                                         </div>
 
-                                                                        <form>
-                                                                            <input id="email" name="email"
-                                                                                value="{{ $user->email }}" hidden>
-                                                                            <input id="user_id" name="user_id"
-                                                                                value="{{ $user->id }}" hidden>
-                                                                            <input id="price" name="amount"
-                                                                                value="{{ $item->total_cost }}" hidden>
-                                                                            <input id="room_id" name="room_id"
-                                                                                value="{{ $item->room_id }}" hidden>
-                                                                            <input id="booking_id" name="booking_id"
-                                                                                value="{{ $item->id }}" hidden>
-                                                                            <input id="room_name" name="room_name"
-                                                                                value="{{ $item->room->category->cat_name . '-' . $item->room->room_number }}"
-                                                                                hidden>
-                                                                            {{-- <button name="pay_now" type="button" id="pay-now" title="Pay now">Pay now</button> --}}
-                                                                        </form>
+
                                                                     </div>
                                                                     <div class="modal-footer">
                                                                         <button type="button"
@@ -210,7 +198,7 @@
     </div>
 
 
-    <script>
+    {{-- <script>
         async function MakepaymentPaystack() {
 
             const email = document.getElementById('email').value;
@@ -255,5 +243,24 @@
         }
         const btn = document.getElementById('pay-now');
         btn.addEventListener('click', MakepaymentPaystack)
+    </script> --}}
+    <script>
+        @if (Session::has('message'))
+            var type = "{{ Session::get('alert-type', 'info') }}"
+            switch (type) {
+                case 'info':
+                    toastr.info(" {{ Session::get('message') }} ");
+                    break;
+                case 'success':
+                    toastr.success(" {{ Session::get('message') }} ");
+                    break;
+                case 'warning':
+                    toastr.warning(" {{ Session::get('message') }} ");
+                    break;
+                case 'error':
+                    toastr.error(" {{ Session::get('message') }} ");
+                    break;
+            }
+        @endif
     </script>
 @endsection

@@ -25,6 +25,7 @@ return Application::configure(basePath: dirname(__DIR__))
 
     ->withSchedule(function (Schedule $schedule) {
         $schedule->command('bookings:update-pending')->everyMinute();
+        $schedule->command('bookings:check-booked-rooms')->everyMinute();
     })
 
     ->withExceptions(function (Exceptions $exceptions) {

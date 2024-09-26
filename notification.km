@@ -1,0 +1,47 @@
+{
+    "root": {
+        "data": {
+            "id": "d4fanbbfzxk0",
+            "created": 1727260221171,
+            "text": "Notification"
+        },
+        "children": [
+            {
+                "data": {
+                    "id": "d4fanlonpn40",
+                    "created": 1727260243738,
+                    "text": "notification table"
+                },
+                "children": [
+                    {
+                        "data": {
+                            "id": "d4fantw5bsg0",
+                            "created": 1727260261605,
+                            "text": "id"
+                        },
+                        "children": []
+                    },
+                    {
+                        "data": {
+                            "id": "d4faoh69hjc0",
+                            "created": 1727260312282,
+                            "text": "user_id"
+                        },
+                        "children": []
+                    },
+                    {
+                        "data": {
+                            "id": "d4faomklgc80",
+                            "created": 1727260324033,
+                            "text": "message"
+                        },
+                        "children": []
+                    }
+                ]
+            }
+        ]
+    },
+    "template": "structure",
+    "theme": "fresh-blue",
+    "version": "1.4.43"
+}

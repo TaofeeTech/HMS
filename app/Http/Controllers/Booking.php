@@ -15,6 +15,26 @@ use Illuminate\Support\Facades\Auth;
 class Booking extends Controller
 {
 
+    // public function removeFromCart($id)
+    // {
+    //     // Get the cart from session
+    //     $cart = session()->get('cart', []);
+
+    //     if (isset($cart[$id])) {
+
+    //         $bookings = Bookings::where('id', $cart[$id])
+    //             ->delete();
+
+    //         unset($cart[$id]);
+
+    //         session()->put('cart', $cart);
+
+    //         return redirect()->back();
+
+    //     }
+
+    // }#End Method
+
     public function Home()
     {
 
@@ -22,6 +42,7 @@ class Booking extends Controller
 
         $userBookings = Bookings::with('room.category')
             ->where('guest_id', $user->id)
+            ->whereNot('status', 'pending')
             ->get();
 
         return view('dashboard', compact('userBookings'));
@@ -98,12 +119,29 @@ class Booking extends Controller
             $booking->rate = $room->price_per_night;
             $booking->save();
 
+            $bookingId = $booking->id;
+
+            // $recentbooking = $booking::findOrFail($bookingId);
+
+            // $cart = session()->get('cart', []);
+            // if (!isset($cart[$bookingId])) {
+
+            //     $cart[$bookingId] = [
+            //         'room_id' => $booking->room_id,
+            //         'price' => $booking->total_cost,
+            //         'room_type' => $booking->room_type
+            //     ];
+
+            //     session()->put('cart', $cart);
+
+            // }
+
             $userBookings = Bookings::with('room.category')
                 ->where('guest_id', $request->id)
                 ->latest()
                 ->get();
 
-            return redirect()->route('home', compact('userBookings'))->with('mssg', 'A Room Have Been Booked For You, Kindly Complete Your Booking By Making Payment');
+            return redirect()->route('home', compact('userBookings'))->with('mssg', 'Your Room Has Been Added To Cart, Kindly Complete Your Booking By Making Payment');
 
         }
 
@@ -193,7 +231,7 @@ class Booking extends Controller
             'amount' => $request->price * 100, // Paystack uses kobo, so multiply the price by 100
             'callback_url' => route('paystack.callback'), // Ensure you have the correct callback URL here
             'metadata' => [
-                "cancel_action" => "https://your-cancel-url.com",
+                "cancel_action" => route('paystack.cancel'),
                 'user_id' => $request->user_id,
                 'room_id' => $request->room_id,
                 'room_name' => $request->room_name,
@@ -269,29 +307,37 @@ class Booking extends Controller
             if (isset($paymentDetails['metadata'])) {
                 $order = new Orders;
                 $bookings = new Bookings;
+                $rooms = new Room;
 
                 // Fill in order details
-                $order->transaction_id = $paymentDetails['id']; // 'id' is the unique transaction ID in Paystack
+                $order->transaction_id = $paymentDetails['id'];
                 $order->room_id = $paymentDetails['metadata']['room_id'];
                 $order->user_id = $paymentDetails['metadata']['user_id'];
-                $order->status = 'success'; // Set status manually since Paystack doesn't return this directly for Orders
+                $order->status = 'success';
                 $order->reference = $paymentDetails['reference'];
-                $order->amount = $paymentDetails['amount']; // Amount is in kobo, adjust it as needed
+                $order->amount = $paymentDetails['amount']; 
                 $order->paid_at = $paymentDetails['paid_at'];
                 $order->channel = $paymentDetails['channel'];
                 $order->currency = $paymentDetails['currency'];
-
                 $order->save(); // Save the order
 
                 // Find and update booking status
-                $booking = $bookings::findOrFail($paymentDetails['metadata']['booking_id']);
-                $booking->status = 'confirmed';
-                $booking->payment_method = 'Paystack';
-                $booking->payment_status = 'paid';
-                $booking->update(); // Save the booking updates
+                $booking_ids = explode(',', $paymentDetails['metadata']['booking_id']);
+                foreach ($booking_ids as $b_id) {
+                    $booking = $bookings::findOrFail($b_id);
+                    $booking->status = 'confirmed';
+                    $booking->payment_method = 'Paystack';
+                    $booking->payment_status = 'paid';
+                    $booking->update();
+                }
 
-                // Optionally log payment details for future reference
-                // Log::info($paymentDetails);
+                // Find and update room status
+                $room_ids = explode(',', $paymentDetails['metadata']['room_id']);
+                foreach ($room_ids as $r_id) {
+                    $room = $rooms::findOrFail($r_id);
+                    $room->status = 'not available';
+                    $room->update();
+                }
 
                 $user = Auth::user();
                 $userBookings = Bookings::with('room.category')
@@ -309,5 +355,39 @@ class Booking extends Controller
         }
     }
 
+    public function cancel()
+    {
+
+        $user = Auth::user();
+        $userBookings = Bookings::with('room.category')
+            ->where('guest_id', $user->id)
+            ->get();
+
+        $notification = [
+            'type' => 'error',
+            'message' => 'An Error Occured, and We are unable to complete and verify your payment'
+        ];
+
+        return redirect()->route('home', compact('userBookings'))->with($notification);
+
+    }
+
+    public function removeFromCart($id)
+    {
+
+        $cart_id = $id;
+
+        if (isset($cart_id)) {
+
+            $bookings = new Bookings;
+
+            $bookings::findorFail($cart_id)
+                ->delete();
+
+            return redirect()->back();
+
+        }
+
+    }#End Method
 
 }

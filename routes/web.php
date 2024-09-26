@@ -70,6 +70,8 @@ Route::controller(Booking::class)->middleware('auth')->group(function () {
     Route::post('/room/book', 'BookAlternativeRoom')->name('alternative.book');
     Route::post('/payment/paystack', 'MakePaymentPaystack')->name('payment.paystack');
     Route::get('/paystack/callback', 'callback')->name('paystack.callback');
+    Route::get('/paystack/cancel', 'cancel')->name('paystack.cancel');
+    Route::get('/cart/remove/{id}', 'removeFromCart')->name('cart.remove');
 
 });
 
