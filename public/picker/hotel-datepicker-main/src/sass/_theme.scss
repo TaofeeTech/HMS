@@ -1,0 +1,328 @@
+/* =============================================================
+ * THEME
+ * ============================================================*/
+
+.#{$selector} {
+    background-color: $background__color;
+    border-radius: 4px;
+    box-shadow: 8px 8px 40px 5px rgba(0, 0, 0, 0.08);
+    color: $text__base__color;
+    font-family: $font__family;
+    font-size: 14px;
+    line-height: 14px;
+}
+
+.#{$selector}__inner {
+    padding: 20px;
+}
+
+.#{$selector}__month {
+    font-size: 12px;
+}
+
+.#{$selector}__months {
+    @include mq_m {
+        position: relative;
+
+        &:before {
+            background: $line__border__color;
+            bottom: 0;
+            content: "";
+            display: block;
+            left: 50%;
+            position: absolute;
+            top: 0;
+            width: 1px;
+        }
+    }
+}
+
+.#{$selector}__month-caption {
+    border-bottom: 1px solid $line__border__color;
+    height: 2.5em;
+    vertical-align: middle;
+}
+
+.#{$selector}__month-name {
+    text-transform: uppercase;
+}
+
+.#{$selector}__week-days {
+    height: 2em;
+    vertical-align: middle;
+}
+
+.#{$selector}__week-name {
+    font-size: 11px;
+    font-weight: 400;
+    text-transform: uppercase;
+}
+
+.#{$selector}__month-day {
+    @include transition;
+    color: $text__light__color;
+    padding: 9px 7px;
+    border: 1px solid transparent;
+
+    &:focus {
+        outline: none;
+        // border-color: $accent__color;
+        background-color: $focus__bg__color;
+    }
+}
+
+.#{$selector}__month-day--no-checkin {
+    position: relative;
+
+    &:before {
+        bottom: 0;
+        content: "";
+        display: block;
+        left: 0;
+        position: absolute;
+        z-index: -1;
+        width: 0;
+        height: 0;
+        border-bottom: 8px solid $checkin__disabled__color;
+        border-right: 8px solid transparent;
+    }
+}
+
+.#{$selector}__month-day--no-checkout {
+    position: relative;
+
+    &:before {
+        top: 0;
+        content: "";
+        display: block;
+        right: 0;
+        position: absolute;
+        z-index: -1;
+        width: 0;
+        height: 0;
+        border-top: 8px solid $checkin__disabled__color;
+        border-left: 8px solid transparent;
+    }
+}
+
+.#{$selector}__month-day--no-checkin.#{$selector}__month-day--no-checkout:before {
+    content: none;
+}
+
+.#{$selector}__month-day--invalid {
+    color: $dates__invalid__color;
+}
+
+.#{$selector}__month-day--disabled {
+    color: $dates__disabled__color;
+    position: relative;
+
+    &:after {
+        content: "\00d7";
+        left: 50%;
+        position: absolute;
+        color: $dates__disabled__cross__color;
+        font-size: 16px;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
+
+.#{$selector}__month-day--no-checkin,
+.#{$selector}__month-day--no-checkout,
+.#{$selector}__month-day--day-of-week-disabled {
+    background-color: rgba($dates__invalid__color, 0.5);
+}
+
+.#{$selector}__month-day--checkout-enabled {
+}
+
+.#{$selector}__month-day--selected {
+    background-color: rgba($accent__color, 0.2);
+    color: #fff;
+
+    &:after,
+    &:before {
+        display: none;
+    }
+}
+
+.#{$selector}__month-day--hovering {
+    background-color: rgba($accent__color, 0.3);
+    color: #fff;
+}
+
+.#{$selector}__month-day--today {
+    background-color: $text__base__color;
+    color: #fff;
+}
+
+.#{$selector}__month-day--first-day-selected,
+.#{$selector}__month-day--last-day-selected {
+    background-color: $accent__color;
+    color: $background__color;
+}
+
+.#{$selector}__month-day--last-day-selected:after {
+    content: none;
+}
+
+.#{$selector}__month-button {
+    @include transition;
+    display: inline-block;
+    text-indent: -9999px;
+    padding: 5px;
+
+    &:after {
+        background-repeat: no-repeat;
+        background-position: center;
+        float: left;
+        text-indent: 0;
+        content: "";
+        width: 12px;
+        height: 12px;
+    }
+}
+
+.#{$selector}__month-button--prev:after {
+    background-image: url(../icons/left.svg);
+}
+
+.#{$selector}__month-button--next:after {
+    background-image: url(../icons/right.svg);
+}
+
+.#{$selector}__topbar {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.#{$selector}--topbar-bottom {
+    .#{$selector}__topbar {
+        margin-bottom: 0;
+        padding-top: 20px;
+        border-top: 1px solid $line__border__color;
+    }
+}
+
+.#{$selector}--topbar-has-close-button,
+.#{$selector}--topbar-has-clear-button,
+.#{$selector}--topbar-has-submit-button {
+    .#{$selector}__info {
+        @include mq_l {
+            max-width: 325px;
+        }
+    }
+}
+
+.#{$selector}__info-text {
+    font-size: 13px;
+}
+
+.#{$selector}__info--selected {
+    font-size: 11px;
+    text-transform: uppercase;
+}
+
+.#{$selector}__info--selected-label {
+    color: $text__light__color;
+}
+
+.#{$selector}__info-text--selected-days {
+    font-size: 11px;
+    font-style: normal;
+}
+
+.#{$selector}__info--error {
+    color: $info__error__color;
+    font-size: 13px;
+    font-style: italic;
+}
+
+.#{$selector}__info--help {
+    color: $text__light__color;
+    font-style: italic;
+}
+
+.#{$selector}__close-button,
+.#{$selector}__clear-button,
+.#{$selector}__submit-button {
+    @include transition;
+    background-color: $button__bg__color;
+    border-radius: 2px;
+    border: none;
+    box-shadow: none;
+    font-size: 10px;
+    color: $button__txt__color;
+    margin-top: 20px;
+    padding: 7px 13px;
+    text-decoration: none;
+    text-shadow: none;
+    text-transform: uppercase;
+
+    .#{$selector}--topbar-top & {
+        margin-top: 0;
+    }
+
+    &:hover {
+        background-color: $button__bg__hover__color;
+        color: $button__txt__hover__color;
+    }
+
+    &:disabled,
+    &[disabled] {
+        background-color: $button__bg__disabled__color;
+        color: $button__txt__disabled__color;
+        cursor: not-allowed;
+    }
+}
+
+.#{$selector}__close-button {
+    @include mq_l {
+        // margin-top: 0;
+        // position: absolute;
+        // right: 0;
+        // top: 0;
+    }
+}
+
+.#{$selector}__clear-button + .#{$selector}__close-button {
+    margin-left: 10px;
+}
+
+.#{$selector}__clear-button + .#{$selector}__submit-button {
+    margin-left: 10px;
+}
+
+.#{$selector}__submit-button {
+    width: auto;
+}
+
+.#{$selector}__buttons {
+    @include mq_l {
+        margin-top: 0;
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+}
+
+.#{$selector}__tooltip {
+    background-color: #ffe684;
+    border-radius: 1px;
+    font-size: 11px;
+    margin-top: -5px;
+    padding: 5px 10px;
+
+    &:after {
+        border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
+        border-top: 4px solid $tooltip__color;
+        bottom: -4px;
+        content: "";
+        left: 50%;
+        margin-left: -4px;
+        position: absolute;
+    }
+}
