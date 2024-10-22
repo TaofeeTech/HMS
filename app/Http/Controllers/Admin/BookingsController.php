@@ -7,6 +7,7 @@ use App\Models\Bookings;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Session;
 
 class BookingsController extends Controller
 {
@@ -58,6 +59,8 @@ class BookingsController extends Controller
             });
 
             // dd($availableRooms);
+
+            Session::put('options', $validatedData);
 
             return view('room-search', compact('availableRooms'));
 

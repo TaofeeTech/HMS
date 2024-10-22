@@ -79,7 +79,7 @@
                     <div class="row align-items-center">
                         <div class="col-xl-2 col-lg-2 col-6">
                             <div class="tp-header-logo">
-                                <a href="index.html"><img data-width="138" src="{{ asset($system->logo) }}"
+                                <a href="{{ route("index") }}"><img data-width="138" src="{{ asset($system->logo) }}"
                                         alt="logo"></a>
                             </div>
                         </div>

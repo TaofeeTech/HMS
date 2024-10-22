@@ -98,7 +98,7 @@ Route::controller(HomeController::class)->group(function () {
 
 Route::get('/', function () {
     return view('index');
-});
+})->name('index');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

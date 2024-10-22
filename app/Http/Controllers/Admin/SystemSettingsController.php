@@ -100,7 +100,14 @@ class SystemSettingsController extends Controller
             $name_gen = hexdec(uniqid()) . '.' . $file->getClientOriginalExtension();
             $img = $manager->read($file);
             $img = $img->resize($h, $w);
-            $img->toJpeg(80)->save(base_path('public/uploads/' . $path . '/' . $name_gen));
+            // $img->toJpeg(80)->save(base_path('public/uploads/' . $path . '/' . $name_gen));
+            if ($file->getClientOriginalExtension() === 'png') {
+                // Save as PNG to preserve transparency
+                $img->save(base_path('public/uploads/' . $path . '/' . $name_gen), 100);
+            } else {
+                // Convert to JPEG for other formats
+                $img->toJpeg(100)->save(base_path('public/uploads/' . $path . '/' . $name_gen));
+            }
             $save_url = 'uploads/' . $path . '/' . $name_gen;
 
             return $save_url;

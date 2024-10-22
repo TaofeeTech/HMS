@@ -115,7 +115,7 @@
                                                                 <span class="fs-16 font-w500">{{ $item->capacity }} </span>
                                                             </div>
                                                         </td>
-                                                        <td class="facility">
+                                                        <td class="">
                                                             <div>
                                                                 <span class="fs-16 comments">
                                                                     @php

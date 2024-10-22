@@ -166,7 +166,7 @@
                     <div class="col-xl-4 col-lg-5 col-md-6 col-sm-6">
                         <div class="tp-footer-widget mb-60">
                             <div class="tp-footer-logo mb-25">
-                                <a href="index.html"><img data-width="138" src="assets/img/logo/logo-white.png"
+                                <a href="index.html"><img data-width="138" src="{{ asset(App\Models\SystemSetting::findorFail(1)->logo) }}"
                                         alt="logo"></a>
                             </div>
                             <div class="tp-footer-widget-content">

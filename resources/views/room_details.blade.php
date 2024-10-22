@@ -1,13 +1,17 @@
 @extends('main_master')
 @section('main')
+<style>
+    .img-bams{
+        object-fit: cover;
+    }
+</style>
     <!-- tp-room-details-start -->
     <div class="tp-room-details-area pt-100">
         <div class="container">
             <div class="row">
                 <div class="col-12">
                     <div class="tp-room-info-wrap mb-50">
-                        <span class="tp-room-info-subtitle-2"><i class="fa-sharp fa-solid fa-star-sharp"></i> Minimalist
-                            Room</span>
+                        <span class="tp-room-info-subtitle-2 text-capitalize"><i class="fa-sharp fa-solid fa-star-sharp"></i>{{ $room->type . " Room" }}</span>
                         <h2 class="tp-room-info-title-2 mb-15">Forn Gully Bungalow</h2>
                         <div class="tp-room-popup-map">
                             <span class="tp-room-popup-icon">
@@ -118,7 +122,7 @@
             <div class="row tp-gx-25">
                 <div class="col-lg-4">
                     <div class="tp-room-gellary-thumb tp-room-gellary-thumb-2 mb-25 p-relative">
-                        <img class="w-100" src="{{ asset($image[0]) }}" alt="thumb">
+                        <img class="w-100 img-bams" style="object-fit: cover" src="{{ asset($image[0]) }}" alt="thumb">
                         <div class="tp-room-gellary-btn">
                             <a class="tp-btn-white tp-btn-white-2 popup-image"
                                 href="{{ asset($image[0]) }}">View Photos</a>
@@ -169,10 +173,10 @@
                                                 class="tp-room-about-amenities-item tp-room-about-amenities-item-2 colum-space d-flex align-items-center">
                                                 <div class="tp-room-about-amenities-icon">
                                                     <span>
-                                                        {!! $item->icon !!}
+                                                        {!! $item["icon"] !!}
                                                     </span>
                                                 </div>
-                                                <h5 class="tp-room-about-amenities-title">{{ $item->name }}</h5>
+                                                <h5 class="tp-room-about-amenities-title">{{ $item["name"] }}</h5>
                                             </div>
                                         </div>
                                     @endforeach
@@ -523,7 +527,7 @@
                         <div class="tp-room-booking-sidebar mb-50">
                             <div class="tp-room-book-wrap tp-room-book-wrap-2 mb-15">
                                 <span class="tp-room-book-unit">From</span>
-                                <h4 class="tp-room-book-price">$74.00 <span class="night">/night</span></h4>
+                                <h4 class="tp-room-book-price">&#8358;{{ number_format($room->price) }} <span class="night">/night</span></h4>
                             </div>
                             <div class="tp-room-book-wrap tp-room-book-wrap-space tp-room-book-wrap-2">
                                 <div class="tp-hero-form-input tp-room-book-date pb-20">
@@ -657,117 +661,49 @@
                         <h2 class="tp-section-title">Similar Rooms</h2>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="tp-suites-item round-6 mb-30 p-relative">
-                        <a href="room-details-1.html">
-                            <div class="tp-suites-thumb">
-                                <img class="w-100" src="assets/img/service/02.jpg" alt="service">
+                @foreach ($similarRooms as $item) 
+                @php
+                    $image = json_decode($item->image);
+                    $first_image = collect($image)->first();
+                @endphp
+                    <div class="col-lg-4 col-md-6">
+                        <div class="tp-suites-item round-6 mb-30 p-relative">
+                            <a href="room-details-1.html">
+                                <div class="tp-suites-thumb">
+                                    <img class="w-100" src="{{ asset($first_image) }}" alt="service">
+                                </div>
+                            </a>
+                            <div class="tp-suites-price price-radius p-absolute">
+                                <span><b>&#8358; {{ number_format($item->price, 2) }}</b> Per Night</span>
                             </div>
-                        </a>
-                        <div class="tp-suites-price price-radius p-absolute">
-                            <span><b>$145</b> Per Night</span>
-                        </div>
-                        <div class="tp-suites-content p-absolute">
-                            <h3 class="tp-suites-title"><a href="room-details-1.html">Deluxe Room</a></h3>
-                            <div class="tp-suites-room mb-15">
-                                <span>4 Guests</span>
-                                <span class="space">|</span>
-                                <span>Size: 26sqm, 270 sqft</span>
-                            </div>
-                            <div class="tp-suites-hidden">
-                                <p>Booking the perfect hotel sets the stage for an incredible travel experience.</p>
-                                <div class="tp-suites-btn">
-                                    <a class="tp-btn-2" href="room-details-1.html">
-                                        <span>
-                                            <svg width="12" height="15" viewBox="0 0 12 15" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M11 13.8571L6 10.2857L1 13.8571V2.42857C1 2.04969 1.15051 1.68633 1.41842 1.41842C1.68633 1.15051 2.04969 1 2.42857 1H9.57143C9.95031 1 10.3137 1.15051 10.5816 1.41842C10.8495 1.68633 11 2.04969 11 2.42857V13.8571Z"
-                                                    stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                                                    stroke-linejoin="round" />
-                                            </svg>
-                                        </span>
-                                        Book Now
-                                    </a>
+                            <div class="tp-suites-content p-absolute">
+                                <h3 class="tp-suites-title text-capitalize"><a href="{{ route('room.details', $item->id) }}">{{ $item->type . " Room"}}</a></h3>
+                                <div class="tp-suites-room mb-15">
+                                    <span>{{ $item->capacity }} Guests</span>
+                                    <span class="space">|</span>
+                                    <span>Size: 26sqm, 270 sqft</span>
+                                </div>
+                                <div class="tp-suites-hidden">
+                                    <p>{{ $item->short_description }}</p>
+                                    <div class="tp-suites-btn">
+                                        <a class="tp-btn-2" href="room-details-1.html">
+                                            <span>
+                                                <svg width="12" height="15" viewBox="0 0 12 15" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        d="M11 13.8571L6 10.2857L1 13.8571V2.42857C1 2.04969 1.15051 1.68633 1.41842 1.41842C1.68633 1.15051 2.04969 1 2.42857 1H9.57143C9.95031 1 10.3137 1.15051 10.5816 1.41842C10.8495 1.68633 11 2.04969 11 2.42857V13.8571Z"
+                                                        stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                                        stroke-linejoin="round" />
+                                                </svg>
+                                            </span>
+                                            Book Now
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="tp-suites-item round-6 mb-30 p-relative">
-                        <a href="room-details-1.html">
-                            <div class="tp-suites-thumb">
-                                <img class="w-100" src="assets/img/service/03.jpg" alt="service">
-                            </div>
-                        </a>
-                        <div class="tp-suites-price price-radius p-absolute">
-                            <span><b>$175</b> Per Night</span>
-                        </div>
-                        <div class="tp-suites-content p-absolute">
-                            <h3 class="tp-suites-title"><a href="room-details-1.html">Superior Room</a></h3>
-                            <div class="tp-suites-room mb-15">
-                                <span>4 Guests</span>
-                                <span class="space">|</span>
-                                <span>Size: 26sqm, 270 sqft</span>
-                            </div>
-                            <div class="tp-suites-hidden">
-                                <p>Booking the perfect hotel sets the stage for an incredible travel experience.</p>
-                                <div class="tp-suites-btn">
-                                    <a class="tp-btn-2" href="room-details-1.html">
-                                        <span>
-                                            <svg width="12" height="15" viewBox="0 0 12 15" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M11 13.8571L6 10.2857L1 13.8571V2.42857C1 2.04969 1.15051 1.68633 1.41842 1.41842C1.68633 1.15051 2.04969 1 2.42857 1H9.57143C9.95031 1 10.3137 1.15051 10.5816 1.41842C10.8495 1.68633 11 2.04969 11 2.42857V13.8571Z"
-                                                    stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                                                    stroke-linejoin="round" />
-                                            </svg>
-                                        </span>
-                                        Book Now
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="tp-suites-item round-6 mb-30 p-relative">
-                        <a href="room-details-1.html">
-                            <div class="tp-suites-thumb">
-                                <img class="w-100" src="assets/img/service/01.jpg" alt="service">
-                            </div>
-                        </a>
-                        <div class="tp-suites-price price-radius p-absolute">
-                            <span><b>$175</b> Per Night</span>
-                        </div>
-                        <div class="tp-suites-content p-absolute">
-                            <h3 class="tp-suites-title"><a href="room-details-1.html">Luxury Room</a></h3>
-                            <div class="tp-suites-room mb-15">
-                                <span>4 Guests</span>
-                                <span class="space">|</span>
-                                <span>Size: 26sqm, 270 sqft</span>
-                            </div>
-                            <div class="tp-suites-hidden">
-                                <p>Booking the perfect hotel sets the stage for an incredible travel experience.</p>
-                                <div class="tp-suites-btn">
-                                    <a class="tp-btn-2" href="room-details-1.html">
-                                        <span>
-                                            <svg width="12" height="15" viewBox="0 0 12 15" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M11 13.8571L6 10.2857L1 13.8571V2.42857C1 2.04969 1.15051 1.68633 1.41842 1.41842C1.68633 1.15051 2.04969 1 2.42857 1H9.57143C9.95031 1 10.3137 1.15051 10.5816 1.41842C10.8495 1.68633 11 2.04969 11 2.42857V13.8571Z"
-                                                    stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                                                    stroke-linejoin="round" />
-                                            </svg>
-                                        </span>
-                                        Book Now
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </div>
