@@ -38,6 +38,7 @@ class BookingsController extends Controller
 
         $arrival_date = Carbon::createFromFormat('Y-m-d', trim($arrival_date_string));
         $departure_date = Carbon::createFromFormat('Y-m-d', trim($departure_date_string));
+        $daysDifference = $arrival_date->diffInDays($departure_date);
 
         try {
 
@@ -59,10 +60,23 @@ class BookingsController extends Controller
             });
 
             // dd($availableRooms);
+            $validatedData['days_difference'] = $daysDifference;
 
-            Session::put('options', $validatedData);
+            if (Session::has('options')) {
+                
+                $currentOptions = Session::get('options');
 
-            return view('room-search', compact('availableRooms'));
+                $updatedOptions = array_merge($currentOptions, $validatedData);
+                
+                Session::put('options', $updatedOptions);
+
+            } else {
+                
+                Session::put('options', $validatedData);
+
+            }
+
+            return view('room-search', compact('availableRooms', 'validatedData'));
 
         } catch (\Exception $e) {
 

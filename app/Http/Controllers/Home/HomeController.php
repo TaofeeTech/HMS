@@ -21,7 +21,7 @@ class HomeController extends Controller
             ->get();
         $options = Session::get('options');
 
-        return view('room_details', compact('room', 'similarRooms', '$options'));
+        return view('room_details', compact('room', 'similarRooms', 'options'));
 
     }//End Method
 

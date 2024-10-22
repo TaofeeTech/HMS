@@ -86,11 +86,12 @@
 
 
     <div class="container tp-hero-date-form w-50 bg-white rounded p-4">
-        <form action="" class="form row">
+        <form action="{{ route("room.search") }}" class="form row" method="POST">
+            @csrf
 
             <div class="form-group col-lg-4">
                 <label for="input-id">Date</label>
-                <input type="date" id="input-id" class="form-control" name="daterange">
+                <input type="text" id="input-id" class="form-control h38" name="daterange">
             </div>
 
             <div class="form-group col-lg-4">
@@ -174,6 +175,8 @@
 
                 </div>
             </div>
+
+            <button type="submit" class="btn btn-primary mt-2 d-block w-25 mx-auto">Book</button>
 
         </form>
     </div>

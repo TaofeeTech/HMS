@@ -157,7 +157,7 @@
                             <h2 class="tp-room-details-title-2 mb-20">About This Room</h2>
                             <p class="mb-30">{!! $room->description !!}</p>
                             <div class="tp-room-details-toggle-btn tp-room-details-toggle-btn-2">
-                                <button id="show-more" class="tp-btn-4 mb-40">Read More</button>
+                                <a href="{{ route('add.cart', $room->id) }}" class="tp-btn-4 mb-40"> <i class="fa fa-shopping-cart"></i> Add To Cart</a>
                             </div>
                         </div>
                         <div class="tp-room-about-amenities tp-room-about-amenities-2 mb-60">

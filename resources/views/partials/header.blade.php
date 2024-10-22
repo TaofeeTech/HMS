@@ -4,6 +4,17 @@
         $system = App\Models\SystemSetting::findorFail(1);
     @endphp
 
+    <style>
+        .bams-pos-re{
+            position: relative;
+        }
+        .bams-pos-ab{
+            position: absolute;top: 2px;
+            right: 7px;
+            font-size: 9px
+        }
+    </style>
+
     <!-- header-area-start -->
     <div class="tp-header-area">
         <div class="tp-header-top tp-header-border-bottom d-none d-lg-block">
@@ -50,6 +61,15 @@
                                     <li>English</li>
                                     <li>Canada</li>
                                 </ul>
+                            </div>
+                            @php
+                                use Darryldecode\Cart\Facades\CartFacade as Cart;
+                                $cartItems = Cart::getContent();
+                                $itemCount = $cartItems->count();
+                            @endphp
+                            <div class="tp-header-usd tp-header-border-right tp-header-usd-spacing mr-20 bams-pos-re">
+                                <a href="{{ route('cart') }}"><i class="fa fa-shopping-cart"></i></a>
+                                <span class="badge rounded-pill text-bg-danger bams-pos-ab">{{ $itemCount }}</span>
                             </div>
                             <div class="tp-header-acount tp-header-usd tp-header-border-right">
                                 <a href="login.html">
