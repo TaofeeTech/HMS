@@ -12,6 +12,34 @@ use Darryldecode\Cart\Facades\CartFacade as Cart;
 class CartController extends Controller
 {
 
+    public function checkOut()
+    {
+
+        $cartItems = Cart::getContent();
+
+        foreach ($cartItems as $item) {
+
+            $room_id = $item->name;
+            $room_number = $item->attributes->room_number;
+
+            // $bookedRooms = Bookings::BookedRooms($arrival_date, $departure_date);
+
+            // $availableRooms = Rooms::SearchRoom($roomData);
+
+            // $availableRooms = $availableRooms->filter(function ($room) use ($bookedRooms) {
+
+            //     return !in_array($room->id, $bookedRooms->toArray());
+
+            // });
+            
+        }
+
+        // dd($cartItems);
+
+        // return view('checkout', compact('cartItems'));
+
+    }//end method
+
     public function RemoveItemFromCart($id)
     {
 

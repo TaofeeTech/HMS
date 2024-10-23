@@ -62,6 +62,7 @@ Route::controller(CartController::class)->group(function () {
     Route::get('/cart', 'index')->name('cart');
     Route::get("/add-to-cart/{id}", "AddToCart")->name("add.cart");
     Route::get("remove-from-cart/{id}", "RemoveItemFromCart")->name("remove.cart");
+    Route::get("/checkout", "checkOut")->name('checkout');
 
 });
 
